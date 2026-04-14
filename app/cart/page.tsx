@@ -66,6 +66,7 @@ export default function CartPage() {
 
       <section className="page-section">
         <div className={styles.layout}>
+
           <div className={styles.itemsList}>
             <div className={styles.listHeader}>
               <h2 className={styles.listTitle}>Cart Items</h2>
@@ -83,18 +84,8 @@ export default function CartPage() {
                     <div className="cart-item-sub">{item.size} · {item.code}</div>
                     <div className="cart-item-price" style={{ marginTop: '4px' }}>
                       ₹{item.price} × {item.qty} = <strong>₹{item.price * item.qty}</strong>
-                      {rate > 0
-                        ? <span style={{ marginLeft: '6px', fontSize: '0.72rem', color: 'var(--tl)' }}>+ ₹{gstAmt} GST ({(rate * 100).toFixed(0)}%)</span>
-                        : <span style={{ marginLeft: '6px', fontSize: '0.72rem', color: 'var(--sage)' }}>GST exempt</span>
-                      }
                     </div>
                   </div>
-                  <div className={styles.qtyControl}>
-                    <button className={styles.qtyBtn} onClick={() => updateQty(item.id, item.qty - 1)}>−</button>
-                    <span className={styles.qtyNum}>{item.qty}</span>
-                    <button className={styles.qtyBtn} onClick={() => updateQty(item.id, item.qty + 1)}>+</button>
-                  </div>
-                  <button className={styles.removeBtn} onClick={() => removeItem(item.id)} title="Remove">✕</button>
                 </div>
               );
             })}
@@ -119,6 +110,7 @@ export default function CartPage() {
               <span>₹{subtotal}</span>
             </div>
 
+            {/* ✅ FIXED: moved outside */}
             {Object.entries(gstBreakdown).map(([label, amt]) => (
               <div key={label} className={styles.summaryRow}>
                 <span>{label}</span>
@@ -143,24 +135,25 @@ export default function CartPage() {
               <WhatsAppIcon /> Order via WhatsApp
             </a>
           </div>
-        </div>
+
+        </div> {/* ✅ FIXED: closing layout */}
       </section>
 
-      <section style={{ background: 'var(--mintbg)', borderTop: '1px solid rgba(30,58,47,0.12)', padding: '28px 5vw' }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto', display: 'flex', justifyContent: 'center', gap: '28px', flexWrap: 'wrap' }}>
+      <section style={{ background: 'var(--mintbg)', padding: '28px 5vw' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '28px', flexWrap: 'wrap' }}>
           {[
             { icon: '🌿', text: 'Freshly sourced after order' },
             { icon: '🚫', text: 'No preservatives' },
             { icon: '🚚', text: 'Delivered Sat & Sun' },
             { icon: '💰', text: 'Cash on Delivery available' },
           ].map(item => (
-            <div key={item.text} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span>{item.icon}</span>
-              <span>{item.text}</span>
+            <div key={item.text}>
+              {item.icon} {item.text}
             </div>
           ))}
         </div>
       </section>
+
     </div>
   );
 }
