@@ -146,7 +146,6 @@ export default function CartPage() {
         </div>
       </section>
 
-      {/* ✅ FIXED: moved inside return */}
       <section style={{ background: 'var(--mintbg)', borderTop: '1px solid rgba(30,58,47,0.12)', padding: '28px 5vw' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto', display: 'flex', justifyContent: 'center', gap: '28px', flexWrap: 'wrap' }}>
           {[
