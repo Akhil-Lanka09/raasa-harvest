@@ -1,0 +1,198 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  height: 64px;
+  background: var(--burg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5vw;
+  box-shadow: 0 2px 24px rgba(59,13,13,0.5);
+  border-bottom: 1px solid rgba(200,134,10,0.25);
+}
+
+/* ── Logo ── */
+.logo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.logoMain {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--saff3);
+  letter-spacing: 1px;
+}
+.logoSub {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(200,134,10,0.6);
+  margin-top: 2px;
+}
+
+/* ── Desktop tabs ── */
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+
+.tab {
+  padding: 7px 12px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: rgba(245,217,138,0.7);
+  background: transparent;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Jost', sans-serif;
+  white-space: nowrap;
+  transition: background 0.2s, color 0.2s;
+}
+.tab:hover {
+  background: rgba(200,134,10,0.12);
+  color: var(--saff3);
+}
+.tab.active {
+  background: var(--saffron);
+  color: var(--burg);
+  font-weight: 600;
+}
+
+.cartBadge {
+  background: var(--saff3);
+  color: var(--burg);
+  border-radius: 10px;
+  padding: 1px 6px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  min-width: 18px;
+  text-align: center;
+}
+.tab.active .cartBadge {
+  background: var(--burg);
+  color: var(--saff3);
+}
+
+/* ── Mobile: right cluster ── */
+.mobileRight {
+  display: none;
+  align-items: center;
+  gap: 10px;
+}
+
+.mobileCart {
+  color: rgba(245,217,138,0.8);
+  font-size: 1.1rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ── Hamburger ── */
+.burger {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 28px;
+}
+.burgerLine {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: rgba(245,217,138,0.8);
+  border-radius: 2px;
+  transition: transform 0.25s, opacity 0.25s;
+  transform-origin: center;
+}
+.burgerOpen1 { transform: translateY(7px) rotate(45deg); }
+.burgerOpen2 { opacity: 0; }
+.burgerOpen3 { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Mobile drawer ── */
+.drawer {
+  position: fixed;
+  inset: 64px 0 0 0;
+  z-index: 199;
+  background: rgba(20,4,4,0.5);
+  backdrop-filter: blur(4px);
+}
+.drawerInner {
+  background: var(--burg);
+  border-top: 1px solid rgba(200,134,10,0.2);
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0 16px;
+  border-bottom: 2px solid rgba(200,134,10,0.2);
+  box-shadow: 0 8px 32px rgba(59,13,13,0.4);
+}
+.drawerLink {
+  padding: 14px 6vw;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(245,217,138,0.8);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.15s;
+}
+.drawerLink:hover { background: rgba(200,134,10,0.1); }
+.drawerActive {
+  color: var(--saff3);
+  background: rgba(200,134,10,0.12);
+  font-weight: 600;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .tabs { display: none; }
+  .mobileRight { display: flex; }
+}
+
+/* Drawer logo */
+.drawerLogo {
+  padding: 16px 0 20px;
+  border-bottom: 1px solid rgba(200,134,10,0.15);
+  margin-bottom: 8px;
+}
+.drawerLogoMain {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--saff3);
+  display: block;
+}
+.drawerLogoSub {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(200,134,10,0.45);
+  margin-top: 2px;
+  display: block;
+}

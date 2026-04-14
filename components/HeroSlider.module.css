@@ -1,0 +1,235 @@
+.slider {
+  position: relative;
+  width: 100%;
+  min-height: 92vh;
+  overflow: hidden;
+  background: #1a0a0a;
+  display: flex;
+  align-items: flex-end;
+}
+
+/* Image wrapper fills the container */
+.imgWrap {
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.4s ease;
+}
+
+.imgVisible { opacity: 1; }
+.imgHidden  { opacity: 0; }
+
+/* Dark gradient overlay for text readability */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(20, 6, 6, 0.88) 0%,
+    rgba(20, 6, 6, 0.7) 50%,
+    rgba(20, 6, 6, 0.25) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Text content — positioned bottom-left like old hero */
+.textContent {
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+  padding: 0 5vw 60px;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.ctaVisible { opacity: 1; transform: translateY(0); }
+.ctaHidden  { opacity: 0; transform: translateY(12px); }
+
+/* Badge */
+.badge {
+  display: inline-block;
+  border: 1px solid;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  color: var(--saff3);
+}
+
+/* Slide title */
+.slideTitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 600;
+  color: var(--ivory, #faf6ee);
+  line-height: 1.05;
+  margin-bottom: 20px;
+  letter-spacing: -0.5px;
+}
+
+.slideTitle em {
+  font-style: italic;
+  color: var(--saff3, #f5d98a);
+}
+
+/* Slide subtitle */
+.slideSubtitle {
+  font-size: 1.05rem;
+  color: rgba(250, 246, 238, 0.75);
+  line-height: 1.65;
+  font-weight: 300;
+  margin-bottom: 32px;
+  max-width: 480px;
+}
+
+/* CTA buttons row */
+.ctaRow {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.ctaPrimary {
+  padding: 14px 32px;
+  background: var(--saffron, #c8860a);
+  color: var(--burg, #3b0d0d);
+  border: none;
+  border-radius: 4px;
+  font-family: 'Jost', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.ctaPrimary:hover {
+  background: var(--saff2, #e8a020);
+  transform: translateY(-1px);
+}
+
+.ctaSecondaryBtn {
+  padding: 14px 32px;
+  background: transparent;
+  border: 1.5px solid;
+  border-radius: 4px;
+  font-family: 'Jost', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s;
+}
+
+.ctaSecondaryBtn:hover {
+  background: rgba(245, 217, 138, 0.1);
+}
+
+/* Trust badges strip */
+.trustStrip {
+  display: flex;
+  gap: 36px;
+  flex-wrap: nowrap;
+}
+
+.trustBadge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.trustIcon {
+  font-size: 1.2rem;
+}
+
+.trustLabel {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--saff3, #f5d98a);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.trustSub {
+  font-size: 0.68rem;
+  color: rgba(245, 217, 138, 0.5);
+  font-family: 'DM Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+/* Dots */
+.dots {
+  position: absolute;
+  bottom: 20px;
+  right: 5vw;
+  z-index: 3;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.25s;
+}
+
+.dot:hover { border-color: rgba(255, 255, 255, 0.9); }
+
+.dotActive {
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* Progress bar */
+.progressBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.15);
+  z-index: 3;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 0 2px 2px 0;
+  animation: progress 4s linear forwards;
+}
+
+@keyframes progress {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .slider { min-height: 80vh; }
+  .slideTitle { font-size: 2.8rem; }
+  .trustStrip { gap: 14px; }
+  .textContent { max-width: 100%; padding-bottom: 48px; }
+  .ctaRow { margin-bottom: 28px; }
+}
+
+@media (max-width: 480px) {
+  .slider { min-height: 75vh; }
+  .slideTitle { font-size: clamp(2rem, 9vw, 3rem); }
+  .slideSubtitle { font-size: 0.88rem; }
+  .ctaRow { flex-direction: column; }
+  .trustStrip { display: none; }
+}
