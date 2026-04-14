@@ -84,8 +84,18 @@ export default function CartPage() {
                     <div className="cart-item-sub">{item.size} · {item.code}</div>
                     <div className="cart-item-price" style={{ marginTop: '4px' }}>
                       ₹{item.price} × {item.qty} = <strong>₹{item.price * item.qty}</strong>
+                      {rate > 0
+                        ? <span style={{ marginLeft: '6px', fontSize: '0.72rem', color: 'var(--tl)' }}>+ ₹{gstAmt} GST ({(rate * 100).toFixed(0)}%)</span>
+                        : <span style={{ marginLeft: '6px', fontSize: '0.72rem', color: 'var(--sage)' }}>GST exempt</span>
+                      }
                     </div>
                   </div>
+                  <div className={styles.qtyControl}>
+                    <button className={styles.qtyBtn} onClick={() => updateQty(item.id, item.qty - 1)}>−</button>
+                    <span className={styles.qtyNum}>{item.qty}</span>
+                    <button className={styles.qtyBtn} onClick={() => updateQty(item.id, item.qty + 1)}>+</button>
+                  </div>
+                  <button className={styles.removeBtn} onClick={() => removeItem(item.id)} title="Remove">✕</button>
                 </div>
               );
             })}
@@ -110,7 +120,6 @@ export default function CartPage() {
               <span>₹{subtotal}</span>
             </div>
 
-            {/* ✅ FIXED: moved outside */}
             {Object.entries(gstBreakdown).map(([label, amt]) => (
               <div key={label} className={styles.summaryRow}>
                 <span>{label}</span>
@@ -136,7 +145,7 @@ export default function CartPage() {
             </a>
           </div>
 
-        </div> {/* ✅ FIXED: closing layout */}
+        </div> {/* ✅ FIXED: layout closed */}
       </section>
 
       <section style={{ background: 'var(--mintbg)', padding: '28px 5vw' }}>
