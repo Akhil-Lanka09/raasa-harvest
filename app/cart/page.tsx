@@ -27,12 +27,10 @@ export default function CartPage() {
     );
   }
 
-  // GST calculations
   const subtotal = total;
   const totalGst = items.reduce((sum, i) => sum + calcItemGst(i.price, i.qty, i.code), 0);
   const grandTotal = subtotal + totalGst;
 
-  // Group GST by rate for breakdown
   const gstBreakdown: Record<string, number> = {};
   items.forEach(i => {
     const rate = getGstRate(i.code);
@@ -47,7 +45,7 @@ export default function CartPage() {
     items.map(i => {
       const gst = calcItemGst(i.price, i.qty, i.code);
       const rate = getGstRate(i.code);
-      const gstLine = rate > 0 ? ` + ₹${gst} GST (${(rate*100).toFixed(0)}%)` : ' (GST Exempt)';
+      const gstLine = rate > 0 ? ` + ₹${gst} GST (${(rate * 100).toFixed(0)}%)` : ' (GST Exempt)';
       return `- ${i.name} (${i.size}) × ${i.qty} = ₹${i.price * i.qty}${gstLine}  [${i.code}]`;
     }).join('\n') +
     `\n\nSubtotal: ₹${subtotal}` +
@@ -68,7 +66,6 @@ export default function CartPage() {
 
       <section className="page-section">
         <div className={styles.layout}>
-          {/* Items list */}
           <div className={styles.itemsList}>
             <div className={styles.listHeader}>
               <h2 className={styles.listTitle}>Cart Items</h2>
@@ -87,7 +84,7 @@ export default function CartPage() {
                     <div className="cart-item-price" style={{ marginTop: '4px' }}>
                       ₹{item.price} × {item.qty} = <strong>₹{item.price * item.qty}</strong>
                       {rate > 0
-                        ? <span style={{ marginLeft: '6px', fontSize: '0.72rem', color: 'var(--tl)' }}>+ ₹{gstAmt} GST ({(rate*100).toFixed(0)}%)</span>
+                        ? <span style={{ marginLeft: '6px', fontSize: '0.72rem', color: 'var(--tl)' }}>+ ₹{gstAmt} GST ({(rate * 100).toFixed(0)}%)</span>
                         : <span style={{ marginLeft: '6px', fontSize: '0.72rem', color: 'var(--sage)' }}>GST exempt</span>
                       }
                     </div>
@@ -103,9 +100,9 @@ export default function CartPage() {
             })}
           </div>
 
-          {/* Summary panel */}
           <div className={styles.summary}>
             <div className={styles.summaryTitle}>Order Summary</div>
+
             <div className={styles.summaryRows}>
               {items.map(item => (
                 <div key={item.id} className={styles.summaryRow}>
@@ -117,25 +114,17 @@ export default function CartPage() {
 
             <div className={styles.summaryDivider} />
 
-            {/* Subtotal */}
-            <div className={styles.summaryRow} style={{ fontWeight: 500 }}>
+            <div className={styles.summaryRow}>
               <span>Subtotal</span>
               <span>₹{subtotal}</span>
             </div>
 
-            {/* GST breakdown */}
             {Object.entries(gstBreakdown).map(([label, amt]) => (
-              <div key={label} className={styles.summaryRow} style={{ color: 'var(--tl)', fontSize: '0.82rem' }}>
+              <div key={label} className={styles.summaryRow}>
                 <span>{label}</span>
                 <span>₹{amt}</span>
               </div>
             ))}
-            {totalGst === 0 && (
-              <div className={styles.summaryRow} style={{ color: 'var(--sage)', fontSize: '0.82rem' }}>
-                <span>GST</span>
-                <span>Exempt (₹0)</span>
-              </div>
-            )}
 
             <div className={styles.summaryDivider} />
 
@@ -144,52 +133,31 @@ export default function CartPage() {
               <span>₹{grandTotal}</span>
             </div>
 
-            {totalGst > 0 && (
-              <div style={{ fontSize: '0.72rem', color: 'var(--tl)', marginTop: '4px', textAlign: 'right' }}>
-                incl. ₹{totalGst} GST
-              </div>
-            )}
-
-            {grandTotal < 500 && (
-              <div className={styles.deliveryNote}>
-                Add ₹{500 - grandTotal} more for free delivery
-              </div>
-            )}
-            {grandTotal >= 500 && (
-              <div className={styles.deliveryFree}>✓ Free delivery included!</div>
-            )}
-
             <a
               href={`https://wa.me/919849048999?text=${waMsg}`}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary"
-              style={{ width: '100%', textAlign: 'center', marginTop: '16px', display: 'block' }}
+              style={{ width: '100%', marginTop: '16px', display: 'block' }}
             >
-              <WhatsAppIcon /> &nbsp;Order via WhatsApp
+              <WhatsAppIcon /> Order via WhatsApp
             </a>
-            <Link href="/contact" className="btn-secondary"
-              style={{ width: '100%', textAlign: 'center', marginTop: '10px', display: 'block', padding: '12px' }}>
-              Place Order via Form
-            </Link>
           </div>
         </div>
       </section>
-    </div>
-  );
 
-
-      {/* Fresh Commerce Trust */}
+      {/* ✅ FIXED: moved inside return */}
       <section style={{ background: 'var(--mintbg)', borderTop: '1px solid rgba(30,58,47,0.12)', padding: '28px 5vw' }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '28px', flexWrap: 'wrap' }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto', display: 'flex', justifyContent: 'center', gap: '28px', flexWrap: 'wrap' }}>
           {[
             { icon: '🌿', text: 'Freshly sourced after order' },
             { icon: '🚫', text: 'No preservatives' },
             { icon: '🚚', text: 'Delivered Sat & Sun' },
             { icon: '💰', text: 'Cash on Delivery available' },
-          ].map((item: { icon: string; text: string }) => (
-            <div key={item.text} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.82rem', color: 'var(--forest)', fontWeight: 500 }}>
-              <span>{item.icon}</span><span>{item.text}</span>
+          ].map(item => (
+            <div key={item.text} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span>{item.icon}</span>
+              <span>{item.text}</span>
             </div>
           ))}
         </div>
